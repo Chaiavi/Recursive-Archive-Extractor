@@ -6,7 +6,7 @@ Scenario: You have a folder containing (optional) many subfolders, among the fil
 Example: folder1 -> subfolder -> archive.zip
 After running RAE, a target folder will be created with the following tree structure: folder1 -> subfolder -> archive (folder) -> extracted files.
 
-# RecursiveArchiveExtractor Features:
+# RecursiveArchiveExtractor Features
 - Source folder won't be modified, target folder will be created anew with the new folder tree.
 - Non-archive files will be copied to the new structure
 - Archives within archives will also be extracted
