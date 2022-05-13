@@ -14,3 +14,8 @@ After running RAE, a target folder will be created with the following tree struc
 - Non-archive files will be copied to the new structure
 - Archives within archives will also be extracted
 - Archive extraction supports: Zip, Tar, 7zip, Jar, Dump, CPIO, AR
+
+# How to Run ?
+- [Download the latest released Jar file](https://github.com/Chaiavi/Recursive-Archive-Extractor/releases)
+- Make sure you have JRE17 (download it if not)
+- Run: java -jar RecursiveArchiveExtractor-0.8.jar %SOURCE_FOLDER% %TARGET_FOLDER%
