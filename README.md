@@ -13,7 +13,7 @@ After running RAE, a target folder will be created with the following tree struc
 - Source folder won't be modified, target folder will be created anew with the new folder tree.
 - Non-archive files will be copied to the new structure
 - Archives within archives will also be extracted
-- Archive extraction supports: Zip, Tar, 7zip, Jar, Dump, CPIO, AR
+- Archive extraction supports: Zip, Tar, 7zip, Jar, Dump, CPIO, AR, ARJ
 
 # How to Run ?
 - [Download the latest released Jar file](https://github.com/Chaiavi/Recursive-Archive-Extractor/releases)
