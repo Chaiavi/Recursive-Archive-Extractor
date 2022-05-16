@@ -6,7 +6,7 @@
 
     <groupId>org.chaiware.recursive_archive_extractor</groupId>
     <artifactId>RecursiveArchiveExtractor</artifactId>
-    <version>1.0</version>
+    <version>0.8</version>
     <packaging>jar</packaging>
 
     <properties>
