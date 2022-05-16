@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,7 +35,11 @@ public class CCExtractor {
             return true;
         } catch (ArchiveException ex) { // Not an archive
             return false;
+        } catch (Exception ex) { // Problem with the file
+            log.error("Problem happened when attempting to open file: {}", fileNamePath.toString());
         }
+
+        return false;
     }
 
     /**
@@ -50,7 +55,7 @@ public class CCExtractor {
 
             ArchiveEntry archiveEntry = null;
             while ((archiveEntry = archiveInputStream.getNextEntry()) != null) {
-                Path destinationFilePath = Paths.get(extractDirectoryPath.getPath(), archiveEntry.getName().replace("?", "-")); // Fixes a bug with a filename containing ANSI characters
+                Path destinationFilePath = Paths.get(extractDirectoryPath.getPath(), sanitizeFilename(archiveEntry.getName())); // Fixes a bug with a filename containing ANSI characters
                 File file = destinationFilePath.toFile();
                 if (archiveEntry.isDirectory()) {
                     if (!file.isDirectory()) {
@@ -76,5 +81,13 @@ public class CCExtractor {
         }
 
         return true;
+    }
+
+    private static String sanitizeFilename(String filename) {
+        if (filename == null || filename.isEmpty() || filename.length() > 255) {
+            return "_";
+        }
+
+        return filename.replaceAll( "[\u0000-\u001f<>:\"/\\\\|?*\u007f]+", "_" ).trim();
     }
 }
