@@ -1,11 +1,13 @@
 package org.chaiware.recursive_archive_extractor;
 
+import org.apache.commons.compress.utils.FileNameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 /**
@@ -62,7 +64,10 @@ public class RecursiveArchiveExtractor {
      */
     private static void handleFile(File file, File destinationPath) throws IOException {
         if (CCExtractor.isArchive(file.toPath())) {
-            File destinationArchiveFolder = new File(destinationPath + "\\" + file.getName().substring(0, file.getName().lastIndexOf(".")).replace("\\\\", "\\"));
+            String baseFilename = FileNameUtils.getBaseName(file.getName());
+            // Solves a bug when an archive has no suffix, then the folder can't be created as there is a file with the same name
+            baseFilename = !(baseFilename.equals(file.getName())) ? baseFilename : baseFilename + ".zip";
+            File destinationArchiveFolder = Paths.get(destinationPath.getPath(), baseFilename).toFile();
             initializeFolder(destinationArchiveFolder);
             CCExtractor.extract(file.toPath(), destinationArchiveFolder);
             log.info("Extracted: {} files to {}", destinationArchiveFolder.listFiles().length, destinationArchiveFolder.getPath());
@@ -80,10 +85,8 @@ public class RecursiveArchiveExtractor {
     }
 
     private static File initializeFolder(File targetFolder) {
-        if (!targetFolder.exists()) {
-            if (targetFolder.mkdirs()) {
-                log.info("Folder {} Created", targetFolder.getPath());
-            }
+        if (targetFolder.mkdirs()) {
+            log.info("Folder {} Created", targetFolder.getPath());
         }
 
         return targetFolder;
