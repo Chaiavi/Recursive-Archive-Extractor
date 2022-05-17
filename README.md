@@ -17,5 +17,5 @@ After running RAE, a target folder will be created with the following tree struc
 
 # How to Run ?
 - [Download the latest released Jar file](https://github.com/Chaiavi/Recursive-Archive-Extractor/releases)
-- Make sure you have JRE17 (download it if not)
+- Make sure you have JRE11 (download it if not)
 - Run: **java -jar RecursiveArchiveExtractor-0.8.jar %SOURCE_FOLDER% %TARGET_FOLDER%**
